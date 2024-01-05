@@ -1,3 +1,3 @@
-# Oloma PHP Framework for Oloma VA
+# Oloma PHP Framework for Vuetify Admin
 
-Oloma php rest api backend framework for Oloma Va
+Oloma php rest api framework.
