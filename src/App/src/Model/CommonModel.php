@@ -96,80 +96,6 @@ class CommonModel
         return $results;
     }
 
-    public function findCompanyShortNamesByKey()
-    {
-        $rows = $this->findCompanies();
-        $result = array();
-        foreach ($rows as $val) {
-            $result[$val['companyShortName']] = $val['id'];
-        }
-        return $result;
-    }
-
-    public function findCompanyShortNames()
-    {
-        $rows = $this->findCompanies();
-        $results = array_column($rows, 'companyShortName');
-        return $results;
-    }
-
-    public function findCompanyIds()
-    {
-        $rows = $this->findCompanies();
-        $results = array_column($rows, 'id');
-        return $results;
-    }
-
-    public function findCompanies()
-    {
-        $sql    = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->columns(
-            [
-                'id' => 'companyId',
-                'name' => 'companyName',
-            ]
-        );
-        $select->from(['c' => 'companies']);
-        $select->order(['companyName ASC']);
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultSet = $statement->execute();
-        $results = iterator_to_array($resultSet);
-        return $results;
-    }
-
-    public function findDepartmentIds()
-    {
-        $rows = $this->findDepartments();
-        $results = array_column($rows, 'id');
-        return $results;
-    }
-
-    public function findDepartments()
-    {
-        $sql    = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->columns(
-            [
-                'id' => 'departmentId',
-                'name' => 'departmentName',
-            ]
-        );
-        $select->from(['d' => 'departments']);
-        $select->order(['departmentName ASC']);
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultSet = $statement->execute();
-        $results = iterator_to_array($resultSet);
-        return $results;
-    }
-
-    public function findCountryIds()
-    {
-        $rows = $this->findCountries();
-        $results = array_column($rows, 'id');
-        return $results;
-    }
-
     public function findCountries()
     {
         $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
@@ -225,49 +151,6 @@ class CommonModel
         $resultSet = $statement->execute();
         $results = iterator_to_array($resultSet);
         $this->cache->setItem($key, $results);
-        return $results;
-    }
-
-    public function findEmployeeGradeNamesByKey()
-    {
-        $rows = $this->findEmployeeGrades();
-        $result = array();
-        foreach ($rows as $val) {
-            $result[$val['name']] = $val['id'];
-        }
-        return $result;
-    }
-
-    public function findEmployeeGradeNames()
-    {
-        $rows = $this->findEmployeeGrades();
-        $results = array_column($rows, 'name');
-        return $results;
-    }
-
-    public function findEmployeeGradeIds()
-    {
-        $rows = $this->findEmployeeGrades();
-        $results = array_column($rows, 'id');
-        return $results;
-    }
-
-    public function findEmployeeGrades()
-    {
-        $sql    = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->columns(
-            [
-                'id' => 'gradeId',
-                'name' => 'gradeName'
-            ]
-        );
-        $select->from(['gr' => 'employeeGrades']);
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultSet = $statement->execute();
-        $results = iterator_to_array($resultSet);
-        // echo $select->getSqlString($this->adapter->getPlatform());
-        // die;
         return $results;
     }
 
@@ -343,48 +226,6 @@ class CommonModel
         $resultSet = $statement->execute();
         $results = iterator_to_array($resultSet);
         $this->cache->setItem($key, $results);
-        return $results;
-    }
-
-    public function findJobTitleNamesByKey()
-    {
-        $rows = $this->findJobTitles();
-        $result = array();
-        foreach ($rows as $val) {
-            $result[$val['name']] = $val['id'];
-        }
-        return $result;
-    }
-
-    public function findJobTitleIds()
-    {
-        $rows = $this->findJobTitles();
-        $results = array_column($rows, 'id');
-        return $results;
-    }
-
-    public function findJobTitleNames()
-    {
-        $rows = $this->findJobTitles();
-        $results = array_column($rows, 'name');
-        return $results;
-    }
-
-    public function findJobTitles()
-    {
-        $sql    = new Sql($this->adapter);
-        $select = $sql->select();
-        $select->columns(
-            [
-                'id' => 'jobTitleId',
-                'name' => 'jobTitleName'
-            ]
-        );
-        $select->from('jobTitles');
-        $select->order('jobTitleName ASC');
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultSet = $statement->execute();
-        $results = iterator_to_array($resultSet);
         return $results;
     }
 

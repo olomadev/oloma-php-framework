@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Exception\JsonDecodeException;
 
 define('PROJECT_ROOT', dirname(__DIR__));
-define('CACHE_ROOT_KEY', 'demo_app:');
+define('CACHE_ROOT_KEY', 'app:');
 define('CACHE_TMP_FILE_KEY', 'tmp_file_');
 define('SESSION_KEY', CACHE_ROOT_KEY.'sessions:');
 

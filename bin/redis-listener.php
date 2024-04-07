@@ -22,8 +22,6 @@ putenv("APP_ENV=$args[1]"); // set environment
 require dirname(__DIR__)."/vendor/autoload.php";
 $container = require dirname(__DIR__).'/config/container.php';
 
-use App\Utils\JobTitleListParser;
-use App\Utils\JobTitleListImporter;
 use Predis\ClientInterface as Predis;
 use Psr\SimpleCache\CacheInterface as SimpleCacheInterface;
 try {
@@ -32,28 +30,12 @@ try {
     // jobtitle list
     //------------------------------------------------------------
     //
-    $job = $predis->lpop('jobtitlelist_parse');
+    $job = $predis->lpop(''); // your job
     if (! empty($job)) {
         $data = json_decode($job, true);    
-        $jobTitleParser = new JobTitleListParser($container);
-        $jobTitleParser->parse($data);
     }
-    $job = $predis->lpop('jobtitlelist_save');
-    if (! empty($job)) {
-        $data = json_decode($job, true);    
-        $jobTitleImporter = new JobTitleListImporter($container);
-        $jobTitleImporter->import($data);
-    }
+
 } catch (Exception $e) {
-    if (! empty($data['fileKey'])) { // set error 
-        $fileKey = $data['fileKey'];
-        $simpleCache = $container->get(SimpleCacheInterface::class);
-        $simpleCache->set(
-            $fileKey.'_status', 
-            ['status' => false, 'error' => $e->getMessage()],
-            600
-        );
-    }
     $errorStr = $e->getMessage()." Error Line: ".$e->getLine();
     echo $errorStr.PHP_EOL;
     file_put_contents(PROJECT_ROOT."/data/tmp/error-output.txt", $errorStr, FILE_APPEND | LOCK_EX);
