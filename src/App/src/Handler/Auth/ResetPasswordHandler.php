@@ -57,7 +57,7 @@ class ResetPasswordHandler implements RequestHandlerInterface
             //
             // Send reset password email to user
             //
-            $link = 'https://demo.oloma.dev/resetPassword?resetCode='.$resetCode;
+            $link = 'http://example.local/resetPassword?resetCode='.$resetCode;
             $this->mailer->isHtml(true);
             $data = [
                 'email' => $username,

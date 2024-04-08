@@ -12,20 +12,20 @@ MySQL - 8.0.36-0ubuntu0.22.04.1 : Database - olobase_demo
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`olobase_demo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`olobase_default` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `olobase_demo`;
+USE `olobase_default`;
 
 /*Table structure for table `areaCodes` */
 
 DROP TABLE IF EXISTS `areaCodes`;
 
 CREATE TABLE `areaCodes` (
-  `areaCodeId` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `areaCode` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `phoneMask` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `mobileMask` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `areaCodeId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `areaCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phoneMask` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `mobileMask` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `areaCodes` */
 
@@ -289,8 +289,8 @@ DROP TABLE IF EXISTS `cities`;
 
 CREATE TABLE `cities` (
   `cityId` int NOT NULL,
-  `countryId` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `cityName` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `countryId` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `cityName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`cityId`,`countryId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -26750,12 +26750,12 @@ insert  into `cities`(`cityId`,`countryId`,`cityName`) values
 DROP TABLE IF EXISTS `companies`;
 
 CREATE TABLE `companies` (
-  `companyId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `companyName` varchar(160) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `companyShortName` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `taxOffice` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `taxNumber` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `companyId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `companyName` varchar(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `companyShortName` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `taxOffice` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `taxNumber` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   PRIMARY KEY (`companyId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -26771,8 +26771,8 @@ insert  into `companies`(`companyId`,`companyName`,`companyShortName`,`taxOffice
 DROP TABLE IF EXISTS `countries`;
 
 CREATE TABLE `countries` (
-  `countryId` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `countryName` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `countryId` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `countryName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`countryId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -27042,8 +27042,8 @@ insert  into `countries`(`countryId`,`countryName`) values
 DROP TABLE IF EXISTS `currencies`;
 
 CREATE TABLE `currencies` (
-  `currencyId` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT 'Para Birimi',
-  `currencyName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'PB Uzun Metni',
+  `currencyId` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Para Birimi',
+  `currencyName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'PB Uzun Metni',
   PRIMARY KEY (`currencyId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -27053,102 +27053,6 @@ insert  into `currencies`(`currencyId`,`currencyName`) values
 ('EUR','Euro'),
 ('TRY','Türk Lirası'),
 ('USD','Usd');
-
-/*Table structure for table `departments` */
-
-DROP TABLE IF EXISTS `departments`;
-
-CREATE TABLE `departments` (
-  `departmentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `companyId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `departmentName` varchar(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`departmentId`,`companyId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `departments` */
-
-insert  into `departments`(`departmentId`,`companyId`,`departmentName`) values 
-('3e85aa78-821b-4918-9cff-607578ba5674','19412be2-891e-40ff-88c3-d42234c58b05','HR'),
-('626a8cae-d1d1-4e69-a9e1-ae9e6d975ad6','ebf6b935-5bd8-46c1-877b-9c758073f278','Operations'),
-('9294ac5e-93eb-4fd7-9151-8d3f57d7e1ec','19412be2-891e-40ff-88c3-d42234c58b05','Support'),
-('b6661313-be2f-4da0-aa16-bcae8e978e83','19412be2-891e-40ff-88c3-d42234c58b05','Sales');
-
-/*Table structure for table `employeeChildren` */
-
-DROP TABLE IF EXISTS `employeeChildren`;
-
-CREATE TABLE `employeeChildren` (
-  `employeeId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `childId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `childName` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `childBirthdate` date DEFAULT NULL,
-  PRIMARY KEY (`employeeId`,`childId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `employeeChildren` */
-
-/*Table structure for table `employeeFiles` */
-
-DROP TABLE IF EXISTS `employeeFiles`;
-
-CREATE TABLE `employeeFiles` (
-  `employeeId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `fileId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `fileName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fileSize` mediumint DEFAULT NULL,
-  `fileType` varchar(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`employeeId`,`fileId`),
-  KEY `fk_employee_files_id` (`fileId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `employeeFiles` */
-
-/*Table structure for table `employeeGrades` */
-
-DROP TABLE IF EXISTS `employeeGrades`;
-
-CREATE TABLE `employeeGrades` (
-  `gradeId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `gradeName` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`gradeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `employeeGrades` */
-
-insert  into `employeeGrades`(`gradeId`,`gradeName`) values 
-('07ef35ed-5f96-4776-a57a-998d5f09a891','Grade 4'),
-('4f11cb32-9428-42a2-9509-be2c01c9f86e','Grade 1'),
-('8e9204c4-0133-4a51-82ca-4265b1656b1d','Grade 3'),
-('dbb2825d-4c1d-48f9-9384-9c92a33dba31','Grade 2');
-
-/*Table structure for table `employees` */
-
-DROP TABLE IF EXISTS `employees`;
-
-CREATE TABLE `employees` (
-  `employeeId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `employeeNumber` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `companyId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `departmentId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `surname` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `jobTitleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `gradeId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `employmentStartDate` date DEFAULT NULL,
-  `employmentEndDate` date DEFAULT NULL,
-  `createdAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`employeeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `employees` */
-
-insert  into `employees`(`employeeId`,`employeeNumber`,`companyId`,`departmentId`,`name`,`surname`,`jobTitleId`,`gradeId`,`employmentStartDate`,`employmentEndDate`,`createdAt`) values 
-('f607656b-b468-6eaf-4607-2067eb7a10f3','8000085','ebf6b935-5bd8-46c1-877b-9c758073f278','3e85aa78-821b-4918-9cff-607578ba5674','James','Brown','0f27b7cb-8531-eef4-0248-979ca92f9204','8e9204c4-0133-4a51-82ca-4265b1656b1d','2023-10-19','2023-11-01','2023-06-17 15:46:26'),
-('f6e4929f-2f10-03c2-f253-3446fe9ae0cb','8000002','ebf6b935-5bd8-46c1-877b-9c758073f278',NULL,'Suzanne','M. Derr','3c9b787c-caf5-517e-8133-c3b72df87ec1','4f11cb32-9428-42a2-9509-be2c01c9f86e','2021-10-22','2023-10-02','2023-06-17 15:46:26'),
-('f98c2a73-ec32-eacc-3ab2-a000b23e4bdf','8000042','ebf6b935-5bd8-46c1-877b-9c758073f278',NULL,'Kenneth','Williamson','ec624d86-3eea-639a-3070-e552a844aae4','dbb2825d-4c1d-48f9-9384-9c92a33dba31','2021-10-18','2023-10-06','2023-06-17 15:46:26'),
-('fb87fa33-24d4-bf9f-1269-f84c878f6258','8000068','19412be2-891e-40ff-88c3-d42234c58b05','b6661313-be2f-4da0-aa16-bcae8e978e83','Alice','Brown','257bae83-92d5-bb3b-b2fd-12d78b0dad19','8e9204c4-0133-4a51-82ca-4265b1656b1d','2021-10-21','2023-10-27','2023-06-17 15:46:26'),
-('fdfb5859-8b86-857a-132e-8e632b2ae954','8000045','ebf6b935-5bd8-46c1-877b-9c758073f278','3e85aa78-821b-4918-9cff-607578ba5674','Karen','K. Barrett','257bae83-92d5-bb3b-b2fd-12d78b0dad19','07ef35ed-5f96-4776-a57a-998d5f09a891','2021-10-21','2023-10-03','2023-06-17 15:46:26'),
-('ff43239f-49b7-978f-db4c-3cfa4a145e91','8000071','ebf6b935-5bd8-46c1-877b-9c758073f278',NULL,'Maria','Brown','34c1fb13-47b5-ff68-1561-ed6e1be5d127','4f11cb32-9428-42a2-9509-be2c01c9f86e','2023-11-10','2023-05-10','2023-06-17 15:46:26');
 
 /*Table structure for table `errors` */
 
@@ -27204,59 +27108,6 @@ CREATE TABLE `files` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `files` */
-
-/*Table structure for table `jobTitleList` */
-
-DROP TABLE IF EXISTS `jobTitleList`;
-
-CREATE TABLE `jobTitleList` (
-  `jobTitleListId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `yearId` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `listName` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`jobTitleListId`,`yearId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `jobTitleList` */
-
-insert  into `jobTitleList`(`jobTitleListId`,`yearId`,`listName`) values 
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','2023','Liste 1');
-
-/*Table structure for table `jobTitles` */
-
-DROP TABLE IF EXISTS `jobTitles`;
-
-CREATE TABLE `jobTitles` (
-  `jobTitleListId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jobTitleId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `companyId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jobTitleName` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `createdAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`jobTitleListId`,`jobTitleId`,`companyId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `jobTitles` */
-
-insert  into `jobTitles`(`jobTitleListId`,`jobTitleId`,`companyId`,`jobTitleName`,`createdAt`) values 
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','0f27b7cb-8531-eef4-0248-979ca92f9204','ebf6b935-5bd8-46c1-877b-9c758073f278','Computer Programmer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','257bae83-92d5-bb3b-b2fd-12d78b0dad19','ebf6b935-5bd8-46c1-877b-9c758073f278','UX Designer & UI Developer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','34c1fb13-47b5-ff68-1561-ed6e1be5d127','ebf6b935-5bd8-46c1-877b-9c758073f278','Software Engineer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','3c2b73f3-d940-b8c8-8605-995d35dbb912','ebf6b935-5bd8-46c1-877b-9c758073f278','Information Security Analyst','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','3c9b787c-caf5-517e-8133-c3b72df87ec1','ebf6b935-5bd8-46c1-877b-9c758073f278','Chief Information Officer (CIO)','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','451ce77a-bcb7-6e3f-eac9-49a46f11584a','ebf6b935-5bd8-46c1-877b-9c758073f278','Help Desk Worker/Desktop Support','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','5fadb8e6-fb8a-d4cd-9c89-66e99e8d0c9f','ebf6b935-5bd8-46c1-877b-9c758073f278','Cloud Architect','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','7ca12a11-e236-8db6-689c-d3162b17cc11','ebf6b935-5bd8-46c1-877b-9c758073f278','Artificial Intelligence Engineer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','82ab6e1f-51af-3fd6-df32-1c4f0320e557','ebf6b935-5bd8-46c1-877b-9c758073f278','Web Developer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','91b9eae6-5626-1b9e-e6e9-d80a358a5b5c','ebf6b935-5bd8-46c1-877b-9c758073f278','Web Designer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','94fcc714-3692-ed33-f8e0-3b98a0698e4e','ebf6b935-5bd8-46c1-877b-9c758073f278','SQL Developer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','a6c72865-5bee-b671-7534-70e789c532a4','ebf6b935-5bd8-46c1-877b-9c758073f278','Network Administrator','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','bff0c8e5-f1c0-8f60-97cf-6250f4cf97b4','ebf6b935-5bd8-46c1-877b-9c758073f278','Computer Scientist','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','c4454a7e-0172-9919-06ab-888ffbf27c85','ebf6b935-5bd8-46c1-877b-9c758073f278','Technical Specialist','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','c8ad5511-59fd-9aa1-b1f3-6f1ef80ee9f6','ebf6b935-5bd8-46c1-877b-9c758073f278','Data Entry','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','d11590b1-b23e-cf45-ce90-33c324395ae3','ebf6b935-5bd8-46c1-877b-9c758073f278','DevOps Engineer','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','e5124d04-9482-27e4-855f-1d4fe9af04ae','ebf6b935-5bd8-46c1-877b-9c758073f278','IT Professional','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','e6e80af9-2103-a260-c7ab-842d60518b3f','ebf6b935-5bd8-46c1-877b-9c758073f278','IT Manager','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','ec624d86-3eea-639a-3070-e552a844aae4','ebf6b935-5bd8-46c1-877b-9c758073f278','Chief Technology Officer (CTO)','2023-12-01 10:34:29'),
-('f7c0ca51-1f53-070b-89f0-6611c7870f53','f516124e-ee48-16a8-e1a3-f25e6495dc00','ebf6b935-5bd8-46c1-877b-9c758073f278','Application Developer','2023-12-01 10:34:29');
 
 /*Table structure for table `languages` */
 
@@ -27344,12 +27195,12 @@ insert  into `months`(`monthId`,`day`) values
 DROP TABLE IF EXISTS `permissions`;
 
 CREATE TABLE `permissions` (
-  `permId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `moduleName` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `resource` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `action` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `route` varchar(160) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `method` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `permId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `moduleName` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `resource` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `action` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `route` varchar(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `method` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`permId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -27431,8 +27282,8 @@ insert  into `permissions`(`permId`,`moduleName`,`resource`,`action`,`route`,`me
 DROP TABLE IF EXISTS `rolePermissions`;
 
 CREATE TABLE `rolePermissions` (
-  `roleId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `permId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `roleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `permId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`roleId`,`permId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -27514,9 +27365,9 @@ insert  into `rolePermissions`(`roleId`,`permId`) values
 DROP TABLE IF EXISTS `roles`;
 
 CREATE TABLE `roles` (
-  `roleId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `roleKey` varchar(60) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `roleName` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `roleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `roleKey` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `roleName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `roleLevel` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`roleId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -27590,8 +27441,8 @@ C $> pYK ]  \'  s    y* et L   s Ԓ ,Ǭ   W&VT QO) -x1  @  [+lf   DEd      
 DROP TABLE IF EXISTS `userRoles`;
 
 CREATE TABLE `userRoles` (
-  `userId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `roleId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `roleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`userId`,`roleId`) USING BTREE,
   KEY `fk_role_to_roles` (`roleId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -27606,18 +27457,18 @@ insert  into `userRoles`(`userId`,`roleId`) values
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-  `userId` char(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `email` varchar(160) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `firstname` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `lastname` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `firstname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `lastname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   `lastLogin` datetime DEFAULT NULL,
   `active` tinyint(1) DEFAULT '1',
   `emailActivation` tinyint(1) DEFAULT '0',
   `locale` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `themeColor` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `themeColor` char(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`userId`) USING BTREE,
   KEY `user_id` (`userId`) USING BTREE,
   KEY `client_id` (`userId`) USING BTREE
@@ -27633,8 +27484,8 @@ insert  into `users`(`userId`,`email`,`password`,`firstname`,`lastname`,`created
 DROP TABLE IF EXISTS `years`;
 
 CREATE TABLE `years` (
-  `yearId` char(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `yearName` char(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `yearId` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `yearName` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`yearId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

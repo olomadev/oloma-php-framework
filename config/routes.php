@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
 use App\Middleware\JwtAuthenticationMiddleware;
-use App\Middleware\JwtAuthenticationDocumentMiddleware;
 use Psr\Container\ContainerInterface;
 /**
  * Setup routes with a single request method:
@@ -82,58 +81,6 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->route('/api/permissions/delete/:permId', [...$auth, [App\Handler\Permissions\DeleteHandler::class]], ['DELETE']);
     $app->route('/api/permissions/findAll', [JwtAuthenticationMiddleware::class, App\Handler\Permissions\FindAllHandler::class], ['GET']);
     $app->route('/api/permissions/findAllByPaging', [...$auth, [App\Handler\Permissions\FindAllByPagingHandler::class]], ['GET']);
-
-    // Companies (private)
-    $app->route('/api/companies/create', [...$auth, [App\Handler\Companies\CreateHandler::class]], ['POST']);
-    $app->route('/api/companies/update/:companyId', [...$auth, [App\Handler\Companies\UpdateHandler::class]], ['PUT']);
-    $app->route('/api/companies/delete/:companyId', [...$auth, [App\Handler\Companies\DeleteHandler::class]], ['DELETE']);
-    $app->route('/api/companies/findAll', [JwtAuthenticationMiddleware::class, App\Handler\Companies\FindAllHandler::class], ['GET']);
-    $app->route('/api/companies/findAllByPaging', [...$auth, [App\Handler\Companies\FindAllByPagingHandler::class]], ['GET']);
-    $app->route('/api/companies/findOneById/:companyId', [...$auth, [App\Handler\Companies\FindOneByIdHandler::class]], ['GET']);
-    
-    // Employees (private)
-    $app->route('/api/employees/create', [...$auth, [App\Handler\Employees\CreateHandler::class]], ['POST']);
-    $app->route('/api/employees/update/:employeeId', [...$auth, [App\Handler\Employees\UpdateHandler::class]], ['PUT']);
-    $app->route('/api/employees/delete/:employeeId', [...$auth, [App\Handler\Employees\DeleteHandler::class]], ['DELETE']);
-    $app->route('/api/employees/findAll', [...$auth, [App\Handler\Employees\FindAllHandler::class]], ['GET']);
-    $app->route('/api/employees/findAllByPaging', [...$auth, [App\Handler\Employees\FindAllByPagingHandler::class]], ['GET']);
-    $app->route('/api/employees/findOneById/:employeeId', [...$auth, [App\Handler\Employees\FindOneByIdHandler::class]], ['GET']);
-
-    // Employee Grades (private)
-    $app->route('/api/employee-grades/create', [...$auth, [App\Handler\EmployeeGrades\CreateHandler::class]], ['POST']);
-    $app->route('/api/employee-grades/update/:gradeId', [...$auth, [App\Handler\EmployeeGrades\UpdateHandler::class]], ['PUT']);
-    $app->route('/api/employee-grades/delete/:gradeId', [...$auth, [App\Handler\EmployeeGrades\DeleteHandler::class]], ['DELETE']);
-    $app->route('/api/employee-grades/findAll', [JwtAuthenticationMiddleware::class, App\Handler\EmployeeGrades\FindAllHandler::class], ['GET']);
-    $app->route('/api/employee-grades/findAllByPaging', [...$auth, [App\Handler\EmployeeGrades\FindAllByPagingHandler::class]], ['GET']);
-    
-    // Departments (private)
-    $app->route('/api/departments/create', [...$auth, [App\Handler\Departments\CreateHandler::class]], ['POST']);
-    $app->route('/api/departments/update/:departmentId', [...$auth, [App\Handler\Departments\UpdateHandler::class]], ['PUT']);
-    $app->route('/api/departments/delete/:departmentId', [...$auth, [App\Handler\Departments\DeleteHandler::class]], ['DELETE']);
-    $app->route('/api/departments/findAll', [JwtAuthenticationMiddleware::class, App\Handler\Departments\FindAllHandler::class], ['GET']);
-    $app->route('/api/departments/findAllByPaging', [...$auth, [App\Handler\Departments\FindAllByPagingHandler::class]], ['GET']);
-
-    // JobTitles (private)
-    $app->route('/api/jobtitles/create', [...$auth, [App\Handler\JobTitles\CreateHandler::class]], ['POST']);
-    $app->route('/api/jobtitles/update/:jobTitleId', [...$auth, [App\Handler\JobTitles\UpdateHandler::class]], ['PUT']);
-    $app->route('/api/jobtitles/delete/:jobTitleId', [...$auth, [App\Handler\JobTitles\DeleteHandler::class]], ['DELETE']);
-    $app->route('/api/jobtitles/findAll', [JwtAuthenticationMiddleware::class, App\Handler\JobTitles\FindAllHandler::class], ['GET']);
-    $app->route('/api/jobtitles/findAllByPaging', [...$auth, [App\Handler\JobTitles\FindAllByPagingHandler::class]], ['GET']);
-
-    // JobTitleLists - (xlsx import functions) (private)
-    // 
-    $app->route('/api/jobtitlelists/upload', [...$auth, [App\Handler\JobTitleLists\UploadHandler::class]], ['POST']);
-    $app->route('/api/jobtitlelists/preview', [...$auth, [App\Handler\JobTitleLists\PreviewHandler::class]], ['GET']);
-    $app->route('/api/jobtitlelists/import', [...$auth, [App\Handler\JobTitleLists\ImportHandler::class]], ['POST']);
-    $app->route('/api/jobtitlelists/reset', [...$auth, [App\Handler\JobTitleLists\ResetHandler::class]], ['DELETE']);
-    $app->route('/api/jobtitlelists/remove', [...$auth, [App\Handler\JobTitleLists\RemoveHandler::class]], ['DELETE']);
-    //
-    // JobTitleLists - (standart api functions) (private)
-    //
-    $app->route('/api/jobtitlelists/update/:listId', [...$auth, [App\Handler\JobTitleLists\UpdateHandler::class]], ['PUT']);
-    $app->route('/api/jobtitlelists/delete/:listId', [...$auth, [App\Handler\JobTitleLists\DeleteHandler::class]], ['DELETE']);
-    $app->route('/api/jobtitlelists/findAll', [...$auth, [App\Handler\JobTitleLists\FindAllHandler::class]], ['GET']);
-    $app->route('/api/jobtitlelists/findAllByPaging', [...$auth, [App\Handler\JobTitleLists\FindAllByPagingHandler::class]], ['GET']);
 
     // FailedLogins (private)
     $app->route('/api/failedlogins/findAllByPaging', [...$auth, [App\Handler\FailedLogins\FindAllByPagingHandler::class]], ['GET']);

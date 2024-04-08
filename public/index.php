@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header('Access-Control-Allow-Credentials: true');
@@ -19,8 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
     exit(0);
 }
-// error_reporting(error_reporting() ^ E_DEPRECATED);
-ini_set('display_errors', "0");
 
 // default time zone set
 date_default_timezone_set('Europe/Istanbul');

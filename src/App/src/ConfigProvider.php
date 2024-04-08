@@ -90,6 +90,7 @@ class ConfigProvider
                 Middleware\RestrictedModeMiddleware::class => Middleware\RestrictedModeMiddlewareFactory::class,
                 Middleware\JwtAuthenticationMiddleware::class => Middleware\JwtAuthenticationMiddlewareFactory::class,
                 Listener\LoginListener::class => Listener\LoginListenerFactory::class,
+                Utils\ErrorMailer::class => Utils\ErrorMailerFactory::class,
                 Utils\SmtpMailer::class => Utils\SmtpMailerFactory::class,
                 Utils\TokenEncrypt::class => Utils\TokenEncryptFactory::class,
                 StorageInterface::class => Container\CacheFactory::class,

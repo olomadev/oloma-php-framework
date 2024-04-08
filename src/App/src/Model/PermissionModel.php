@@ -246,6 +246,7 @@ class PermissionModel implements PermissionModelInterface
                 'method' => ['id' => $row['method']],
             ];
         }
+        $this->deleteCache();
         return $post;
     }
 

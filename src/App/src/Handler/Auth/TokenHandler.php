@@ -16,7 +16,7 @@ use Olobase\Mezzio\Error\ErrorWrapperInterface as Error;
 use Mezzio\Authentication\AuthenticationInterface as Auth;
 
 /**
- * @OA\Info(title="Demo API", version="1.0"),
+ * @OA\Info(title="Example API", version="1.0"),
  * @OA\Schemes(format="http"),
  * @OA\SecurityScheme(
  *     securityScheme="bearerAuth",
