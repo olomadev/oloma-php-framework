@@ -95,6 +95,18 @@ class FailedLoginModel
         }
     }
 
+    public function delete(string $loginId)
+    {
+        try {
+            $this->conn->beginTransaction();
+            $this->failedLogins->delete(['loginId' => $loginId]);
+            $this->conn->commit();
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            throw $e;
+        }
+    }
+
     /**
      * In these cases we delete unsuccessful attempts:
      *
@@ -111,6 +123,18 @@ class FailedLoginModel
             $this->conn->beginTransaction();
             $this->users->update($data, ['userId' => $where['userId']]);
             $this->failedLogins->delete(['username' => $where['username']]);
+            $this->conn->commit();
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            throw $e;
+        }
+    }
+
+    public function deleteAttemptsByUsername(string $username)
+    {
+        try {
+            $this->conn->beginTransaction();
+            $this->failedLogins->delete(['username' => $username, 'clientId' => CLIENT_ID]);
             $this->conn->commit();
         } catch (Exception $e) {
             $this->conn->rollback();

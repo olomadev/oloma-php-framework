@@ -49,6 +49,9 @@ class ConfigProvider
                     Filter\Account\PasswordChangeFilter::class => Filter\Account\PasswordChangeFilterFactory::class,
                     // Files
                     Filter\Files\ReadFileFilter::class => Filter\Files\ReadFileFilterFactory::class,
+                    // Failed Logins
+                    Filter\FailedLogins\SaveFilter::class => Filter\FailedLogins\SaveFilterFactory::class,
+                    Filter\FailedLogins\DeleteFilter::class => Filter\FailedLogins\DeleteFilterFactory::class,
                     // Permissions
                     Filter\Permissions\SaveFilter::class => Filter\Permissions\SaveFilterFactory::class,
                     Filter\Permissions\DeleteFilter::class => Filter\Permissions\DeleteFilterFactory::class,
@@ -101,6 +104,8 @@ class ConfigProvider
                 // Handlers
                 //------------------------------------------
                 // common
+                Handler\Common\Actions\FindAllHandler::class => Handler\Common\Actions\FindAllHandlerFactory::class,
+                Handler\Common\Methods\FindAllHandler::class => Handler\Common\Methods\FindAllHandlerFactory::class,
                 Handler\Common\Stream\EventsHandler::class => Handler\Common\Stream\EventsHandlerFactory::class,
                 Handler\Common\Locales\FindAllHandler::class => Handler\Common\Locales\FindAllHandlerFactory::class,
                 Handler\Common\Years\FindAllHandler::class => Handler\Common\Years\FindAllHandlerFactory::class,
@@ -146,6 +151,7 @@ class ConfigProvider
                 Handler\Permissions\FindAllHandler::class => Handler\Permissions\FindAllHandlerFactory::class,
                 Handler\Permissions\FindAllByPagingHandler::class => Handler\Permissions\FindAllByPagingHandlerFactory::class,
                 // failed logins
+                Handler\FailedLogins\DeleteHandler::class => Handler\FailedLogins\DeleteHandlerFactory::class,
                 Handler\FailedLogins\FindAllByPagingHandler::class => Handler\FailedLogins\FindAllByPagingHandlerFactory::class,
                 Handler\FailedLogins\FindAllIpAdressesHandler::class => Handler\FailedLogins\FindAllIpAdressesHandlerFactory::class,
                 Handler\FailedLogins\FindAllUsernamesHandler::class => Handler\FailedLogins\FindAllUsernamesHandlerFactory::class,
