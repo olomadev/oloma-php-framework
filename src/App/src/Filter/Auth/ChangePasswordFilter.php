@@ -13,7 +13,9 @@ use Psr\SimpleCache\CacheInterface as SimpleCacheInterface;
 
 class ChangePasswordFilter extends InputFilter
 {
-    public function __construct(private SimpleCacheInterface $simpleCache)
+    protected $simpleCache;
+
+    public function __construct(SimpleCacheInterface $simpleCache)
     {
         $this->simpleCache = $simpleCache;
     }
