@@ -11,6 +11,8 @@ use Laminas\Db\Adapter\AdapterInterface;
 
 class DeleteFilter extends InputFilter
 {
+    protected $adapter;
+
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter  = $adapter;

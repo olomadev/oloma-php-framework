@@ -13,6 +13,8 @@ use Laminas\Db\Adapter\AdapterInterface;
 
 class ReadFileFilter extends InputFilter
 {
+    protected $adapter;
+
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;

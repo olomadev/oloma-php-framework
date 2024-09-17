@@ -13,9 +13,11 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class SessionUpdateHandler implements RequestHandlerInterface
 {
+    private $config;
+
     public function __construct(
         array $config,
-        StorageInterface $cache
+        private StorageInterface $cache
     )
     {
         $this->config = $config;

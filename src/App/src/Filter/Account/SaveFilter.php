@@ -21,6 +21,10 @@ use Laminas\InputFilter\InputFilterPluginManager;
 
 class SaveFilter extends InputFilter
 {
+    protected $user;
+    protected $adapter;
+    protected $commonModel;
+
     public function __construct(
         CommonModel $commonModel,
         InputFilterPluginManager $filter

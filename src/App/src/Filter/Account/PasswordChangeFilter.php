@@ -12,6 +12,9 @@ use Laminas\Db\Adapter\AdapterInterface;
 
 class PasswordChangeFilter extends InputFilter
 {
+    protected $user;
+    protected $adapter;
+
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;

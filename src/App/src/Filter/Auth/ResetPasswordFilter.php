@@ -12,7 +12,7 @@ use Laminas\Db\Adapter\AdapterInterface;
 
 class ResetPasswordFilter extends InputFilter
 {
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(private AdapterInterface $adapter)
     {
         $this->adapter  = $adapter;
     }
