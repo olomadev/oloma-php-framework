@@ -53,6 +53,13 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->route('/api/account/update', [...$auth, ...[App\Handler\Account\UpdateHandler::class]], ['PUT']);
     $app->route('/api/account/updatePassword', [...$auth, ...[App\Handler\Account\UpdatePasswordHandler::class]], ['PUT']);
 
+    // Categories
+    $app->route('/api/categories/findAll', [...$auth, ...[App\Handler\Categories\FindAllHandler::class]], ['GET']);
+    $app->route('/api/categories/findAllByPaging', [...$auth, ...[App\Handler\Categories\FindAllByPagingHandler::class]], ['GET']);
+    $app->route('/api/categories/create', [...$auth, ...[App\Handler\Categories\CreateHandler::class]], ['POST']);
+    $app->route('/api/categories/delete/:categoryId', [...$auth, ...[App\Handler\Categories\DeleteHandler::class]], ['DELETE']);
+    $app->route('/api/categories/update/:categoryId', [...$auth, ...[App\Handler\Categories\UpdateHandler::class]], ['PUT']);
+
     // Roles (private)
     $app->route('/api/roles/create', [...$auth, ...[App\Handler\Roles\CreateHandler::class]], ['POST']);
     $app->route('/api/roles/update/:roleId', [...$auth, ...[App\Handler\Roles\UpdateHandler::class]], ['PUT']);

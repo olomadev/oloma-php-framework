@@ -47,6 +47,9 @@ class ConfigProvider
                     // Account
                     Filter\Account\SaveFilter::class => Filter\Account\SaveFilterFactory::class,
                     Filter\Account\PasswordChangeFilter::class => Filter\Account\PasswordChangeFilterFactory::class,
+                    // Categories
+                    Filter\Categories\SaveFilter::class => Filter\Categories\SaveFilterFactory::class,
+                    Filter\Categories\DeleteFilter::class => Filter\Categories\DeleteFilterFactory::class,
                     // Files
                     Filter\Files\ReadFileFilter::class => Filter\Files\ReadFileFilterFactory::class,
                     // Failed Logins
@@ -129,6 +132,12 @@ class ConfigProvider
                 Handler\Account\FindMeHandler::class => Handler\Account\FindMeHandlerFactory::class,
                 Handler\Account\UpdateHandler::class => Handler\Account\UpdateHandlerFactory::class,
                 Handler\Account\UpdatePasswordHandler::class => Handler\Account\UpdatePasswordHandlerFactory::class,
+                // categories
+                Handler\Categories\CreateHandler::class => Handler\Categories\CreateHandlerFactory::class,
+                Handler\Categories\UpdateHandler::class => Handler\Categories\UpdateHandlerFactory::class,
+                Handler\Categories\DeleteHandler::class => Handler\Categories\DeleteHandlerFactory::class,
+                Handler\Categories\FindAllHandler::class => Handler\Categories\FindAllHandlerFactory::class,
+                Handler\Categories\FindAllByPagingHandler::class => Handler\Categories\FindAllByPagingHandlerFactory::class,
                 // users
                 Handler\Users\CreateHandler::class => Handler\Users\CreateHandlerFactory::class,
                 Handler\Users\UpdateHandler::class => Handler\Users\UpdateHandlerFactory::class,
@@ -161,6 +170,12 @@ class ConfigProvider
                 Model\AuthModel::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     return new Model\AuthModel($dbAdapter);
+                },
+                Model\CategoryModel::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $categories = new TableGateway('categories', $dbAdapter, null, new ResultSet(ResultSet::TYPE_ARRAY));
+                    $cacheStorage = $container->get(StorageInterface::class);
+                    return new Model\CategoryModel($categories, $cacheStorage);
                 },
                 Model\CommonModel::class => function ($container) {
                     $config = $container->get('config');

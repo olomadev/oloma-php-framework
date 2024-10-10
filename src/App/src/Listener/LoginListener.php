@@ -11,7 +11,6 @@ use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
 
 use function createGuid;
-use function getRealUserIp;
 
 class LoginListener implements ListenerAggregateInterface
 {
@@ -19,6 +18,7 @@ class LoginListener implements ListenerAggregateInterface
 
     protected $failedLoginModel;
 
+    const onBeforeLogin = 'onBeforeLogin';
     const onFailedLogin = 'onFailedLogin';
     const onSuccessfullLogin = 'onSuccessfullLogin';
 
@@ -29,17 +29,15 @@ class LoginListener implements ListenerAggregateInterface
 
     public function attach(EventManagerInterface $events, $priority = 1)
     {
+        $this->listeners[] = $events->attach(Self::onBeforeLogin, [$this, Self::onBeforeLogin]);
         $this->listeners[] = $events->attach(Self::onFailedLogin, [$this, Self::onFailedLogin]);
         $this->listeners[] = $events->attach(Self::onSuccessfullLogin, [$this, Self::onSuccessfullLogin]);
     }
 
-    public function onFailedLogin(EventInterface $e)
+    public function onBeforeLogin(EventInterface $e)
     {
         $params = $e->getParams();
-        $request = $params['request'];
         $username = trim($params['username']);
-        $server = $request->getServerParams();
-        $userAgent = empty($server['HTTP_USER_AGENT']) ? 'unknown' : $server['HTTP_USER_AGENT'];
         //
         // check if the username coming with the IP address is banned ?
         // 
@@ -49,16 +47,27 @@ class LoginListener implements ListenerAggregateInterface
                 'message' => $this->failedLoginModel->getMessage(),
             ];
         }
+        return ['banned' => false];
+    }
+
+    public function onFailedLogin(EventInterface $e)
+    {
+        $params = $e->getParams();
+        $request = $params['request'];
+        $username = trim($params['username']);
+        $ipAddress = $params['ip'];
+        $server = $request->getServerParams();
+        $userAgent = empty($server['HTTP_USER_AGENT']) ? 'unknown' : $server['HTTP_USER_AGENT'];
+
         $this->failedLoginModel->createAttempt(
             [
                 'loginId' => createGuid(),
                 'username' => $username,
-                'userAgent' => $userAgent,
                 'attemptedAt' => date("Y-m-d"),
-                'ip' => getRealUserIp(),
+                'userAgent' => $userAgent,
+                'ip' => $ipAddress,
             ]
         );
-        return ['banned' => false];
     }
 
     public function onSuccessfullLogin(EventInterface $e)
@@ -72,10 +81,10 @@ class LoginListener implements ListenerAggregateInterface
             'lastLogin' => date("Y-m-d H:i:s", time()),
         ];
         /**
-         * We delete attempts:
+         * We delete failed login attempts for following scenarios:
          *
          * 1- When user do the successful login
-         * 2- When the user clicks on the reset link in the email we send
+         * 2- When the user clicks the reset link in the email we send
          */
         $this->failedLoginModel->deleteAttemptsAndUpdateUser(
             $updateData,

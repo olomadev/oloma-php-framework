@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Filter\Auth;
+namespace App\Filter\Categories;
 
 use App\Filter\InputFilter;
-use Laminas\Filter\StringTrim;
-use Laminas\Validator\EmailAddress;
+use Laminas\Validator\Uuid;
 use Laminas\Validator\Db\RecordExists;
 use Laminas\Db\Adapter\AdapterInterface;
 
-class ResetPasswordFilter extends InputFilter
+class DeleteFilter extends InputFilter
 {
     protected $adapter;
 
@@ -22,28 +21,21 @@ class ResetPasswordFilter extends InputFilter
     public function setInputData(array $data)
     {
         $this->add([
-            'name' => 'email',
+            'name' => 'id',
             'required' => true,
-            'filters' => [
-                ['name' => StringTrim::class],
-            ],
             'validators' => [
-                [
-                    'name' => EmailAddress::class,
-                    'options' => [
-                        'useMxCheck' => false,
-                    ],
-                ],
+                ['name' => Uuid::class],
                 [
                     'name' => RecordExists::class,
                     'options' => [
-                        'table'   => 'users',
-                        'field'   => 'email',
+                        'table'   => 'categories',
+                        'field'   => 'categoryId',
                         'adapter' => $this->adapter,
                     ]
                 ]
             ],
         ]);
+       
         $this->setData($data);
     }
 }
