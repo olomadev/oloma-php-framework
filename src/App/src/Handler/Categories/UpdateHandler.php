@@ -60,13 +60,14 @@ class UpdateHandler implements RequestHandlerInterface
      **/
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->filter->setInputData($request->getParsedBody());
+        $post = $request->getParsedBody();
+        $this->filter->setInputData($post);
         $data = array();
         $response = array();
         if ($this->filter->isValid()) {
             $this->dataManager->setInputFilter($this->filter);
             $data = $this->dataManager->getSaveData(CategorySave::class, 'categories');
-            $this->categoryModel->update($data);
+            $this->categoryModel->update($data, empty($post['move']) ? false : true);
         } else {
             return new JsonResponse($this->error->getMessages($this->filter), 400);
         }

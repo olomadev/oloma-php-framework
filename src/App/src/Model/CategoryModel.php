@@ -218,7 +218,7 @@ class CategoryModel
         return $branch;
     }
 
-    public function update(array $data)
+    public function update(array $data, bool $move = false)
     {
         $categoryId = (string)$data['id'];
         $name = (string)$data['categories']['name'];
@@ -247,7 +247,7 @@ class CategoryModel
         }
         try {
             $this->conn->beginTransaction();
-            if (isUid($parentId)) {
+            if (isUid($parentId) && $move) {
                 $this->move($data);
             }
             $update = array();
