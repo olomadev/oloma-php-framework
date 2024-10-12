@@ -16,6 +16,7 @@ use function isUid;
 class CategoryModel
 {
     private $conn;
+    private $depth = 0;
     private $cache;
     private $adapter;
     private $categories;
@@ -241,7 +242,7 @@ class CategoryModel
             if ($row) {
                 $data['targetNodeId'] = $row['categoryId'];
                 $data['parentRgt'] = $row['rgt'];
-                $data['parentLft'] = $row['lft'];    
+                $data['parentLft'] = $row['lft'];
             }
         }
         try {
@@ -282,39 +283,37 @@ class CategoryModel
         // target category
         // 
         $targetNodeId = (string)$data['targetNodeId'];
-        $targetParentId = (string)$data['categories']['parentId'];
         $targetPosLeft = (string)$data['parentLft'];
         $targetPosRight = (string)$data['parentRgt'];
+        $nodeSize = $nodePosRight - $nodePosLeft + 1;
         //
-        // node size
-        //
-        $width = $nodePosRight - $nodePosLeft + 1;
-        $newPos = $targetPosLeft + 1;
-        //
-        // calculate position adjustment variables
+        // -- step 1: temporary "remove" moving node
         // 
-        $distance = $newPos - $nodePosLeft;
-        $tmppos = $nodePosLeft;
-        //     
-        // backwards movement must account for new space
-        // 
-        if ($distance < 0) {
-            $distance -= $width;
-            $tmppos += $width;
-        }
-        $sql = "UPDATE categories SET lft = lft + $width WHERE lft >= $newPos";
+        $sql = "UPDATE `categories` SET `lft` = 0-(`lft`), `rgt` = 0-(`rgt`) WHERE `lft` >= $nodePosLeft AND `rgt` <= $nodePosRight";
+        $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
+        //
+        // -- step 2: decrease left and/or right position values of currently 'lower' items (and parents)
+        //
+        $sql = "UPDATE `categories` SET `lft` = `lft` - $nodeSize WHERE `lft` > $nodePosRight";
+        $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
+        
+        $sql = "UPDATE `categories` SET `rgt` = `rgt` - $nodeSize WHERE `rgt` > $nodePosRight";
+        $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
+        //
+        // -- step 3: increase left and/or right position values of future 'lower' items (and parents)
+        //
+        $sql = "UPDATE `categories` SET `lft` = `lft` + $nodeSize WHERE `lft` >= IF($targetPosRight > $nodePosRight, $targetPosRight - $nodeSize, $targetPosRight)";
         $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
 
-        $sql = "UPDATE categories SET rgt = rgt + $width WHERE lft >= $newPos";
+        $sql = "UPDATE `categories` SET `rgt` = `rgt` + $nodeSize WHERE `rgt` >= IF($targetPosRight > $nodePosRight, $targetPosRight - $nodeSize, $targetPosRight)";
         $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
-
-        $sql = "UPDATE categories SET lft = lft + $distance, rgt = rgt + $distance WHERE lft >= $tmppos AND rgt < ($tmppos + $width)";
-        $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
-
-        $sql = "UPDATE categories SET lft = lft - $width WHERE lft > $nodePosRight";
-        $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
-
-        $sql = "UPDATE categories SET rgt = rgt - $width WHERE rgt > $nodePosRight";
+        //
+        // -- step 4: move node (ant it's subnodes) and update it's parent item id
+        //
+        $sql = "UPDATE `categories` SET ";
+        $sql.= "`lft` = 0-(`lft`)+IF($targetPosRight > $nodePosRight, $targetPosRight - $nodePosRight - 1, $targetPosRight - $nodePosRight - 1 + $nodeSize),";
+        $sql.= "`rgt` = 0-(`rgt`)+IF($targetPosRight > $nodePosRight, $targetPosRight - $nodePosRight - 1, $targetPosRight - $nodePosRight - 1 + $nodeSize) ";
+        $sql.= "WHERE `lft` <= 0-$nodePosLeft AND `rgt` >= 0-$nodePosRight";
         $this->adapter->query($sql, $this->adapter::QUERY_MODE_EXECUTE);
         //
         // -- update parent id
