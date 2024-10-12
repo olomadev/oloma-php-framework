@@ -34,10 +34,10 @@ class CategoryModel
 
     public function findAll()
     {
-        // $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
-        // if ($this->cache->hasItem($key)) {
-        //     return $this->cache->getItem($key);
-        // } 
+        $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
+        if ($this->cache->hasItem($key)) {
+            return $this->cache->getItem($key);
+        } 
         $sql = new Sql($this->adapter);
         $select = $sql->select();
         $select->columns([
@@ -58,18 +58,18 @@ class CategoryModel
         $resultSet = $statement->execute();
         $options = iterator_to_array($resultSet);
         
-        // if (! empty($options))  {
-        //     $this->cache->setItem($key, $options);
-        // }
+        if (! empty($options))  {
+            $this->cache->setItem($key, $options);
+        }
         return $options;
     }
 
     public function findAllByPaging()
     {
-        // $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
-        // if ($this->cache->hasItem($key)) {
-        //     return $this->cache->getItem($key);
-        // }        
+        $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
+        if ($this->cache->hasItem($key)) {
+            return $this->cache->getItem($key);
+        }        
         /**
          * Find all category tree
          * 
@@ -105,9 +105,9 @@ class CategoryModel
         $items = iterator_to_array($resultSet);
         $itemsArray = $this->buildTree($items, 0);
 
-        // if (! empty($itemsArray))  {
-        //     $this->cache->setItem($key, $itemsArray);    
-        // }
+        if (! empty($itemsArray))  {
+            $this->cache->setItem($key, $itemsArray);    
+        }
         return $itemsArray;
     }
 
