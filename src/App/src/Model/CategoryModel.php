@@ -117,11 +117,11 @@ class CategoryModel
         $name = (string)$data['categories']['name'];
         $parentId = (string)$data['categories']['parentId'];
         $rgtValue = (int)$data['categories']['rgt'];
-
+        //
         // UPDATE categories SET rgt = rgt + 2 WHERE rgt > $rgtValue;
         // UPDATE categories SET lft = lft + 2 WHERE lft > $rgtValue;
-
         // INSERT INTO categories(categoryId, name, parentId, lft, rgt) VALUES('id', $parentId, 'GAME CONSOLES', $rgtValue + 1, $rgtValue + 2);
+        // 
         $this->deleteCache();
         try {
             $this->conn->beginTransaction();

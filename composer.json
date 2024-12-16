@@ -39,7 +39,7 @@
         }
     },
     "require": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/annotations": "^1.13",
         "doctrine/orm": "^2.12",
@@ -80,7 +80,7 @@
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.6.0",
-        "mezzio/mezzio-tooling": "2.8",
+        "mezzio/mezzio-tooling": "2.9",
         "roave/security-advisories": "dev-master"
     },
     "autoload": {
