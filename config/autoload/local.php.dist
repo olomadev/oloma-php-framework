@@ -47,7 +47,8 @@ return [
         'encryption' => [
             'iv' => '', // generate random 16 chars string
             'enabled' => false, // it should be true in production environment
-            'secret_key' => '',
+            'secret_key' => '', // generate base64 encoded string. 
+                                // base64_encode(openssl_random_pseudo_bytes(32));
         ],
         // Public and private keys are expected to be Base64 encoded.
         // The last non-empty line is used so that keys can be generated with
