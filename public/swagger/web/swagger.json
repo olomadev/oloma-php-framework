@@ -249,6 +249,168 @@
                 }
             }
         },
+        "/categories/create": {
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new user",
+                "operationId": "categories_create",
+                "requestBody": {
+                    "description": "Create a new category",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategorySave"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request, returns to validation errors"
+                    }
+                }
+            }
+        },
+        "/categories/delete/{categoryId}": {
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete category",
+                "operationId": "category_delete",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category uuid",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/categories/findAllByPaging": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Find all categories tree",
+                "operationId": "categories_findAllByPaging",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CategoriesFindAllByPaging"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No result found"
+                    }
+                }
+            }
+        },
+        "/categories/findAll": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Find all categories",
+                "operationId": "categories_findAll",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CommonFindAll"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No result found"
+                    }
+                }
+            }
+        },
+        "/categories/update/{cateogoryId}": {
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update category",
+                "operationId": "categories_update",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update category",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategorySave"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request, returns to validation errors"
+                    }
+                }
+            }
+        },
+        "/actions/findAll": {
+            "get": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Find all actions",
+                "operationId": "actions_findAll",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CommonFindAll"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No result found"
+                    }
+                }
+            }
+        },
         "/areaCodes/findAll": {
             "get": {
                 "tags": [
@@ -437,6 +599,30 @@
                 }
             }
         },
+        "/methods/findAll": {
+            "get": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "Find all allowed http methods",
+                "operationId": "methods_findAll",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CommonFindAll"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No result found"
+                    }
+                }
+            }
+        },
         "/months/findAll": {
             "get": {
                 "tags": [
@@ -495,6 +681,32 @@
                     },
                     "404": {
                         "description": "No result found"
+                    }
+                }
+            }
+        },
+        "/failedlogins/delete/{loginId}": {
+            "delete": {
+                "tags": [
+                    "Failed Logins"
+                ],
+                "summary": "Delete failed login",
+                "operationId": "failedlogins_delete",
+                "parameters": [
+                    {
+                        "name": "loginId",
+                        "in": "path",
+                        "description": "Failed login uuid",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -1387,6 +1599,59 @@
                 },
                 "type": "object"
             },
+            "CategoriesFindAllByPaging": {
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "categoryId": {
+                                    "type": "string"
+                                },
+                                "parentId": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "slug": {
+                                    "type": "string"
+                                },
+                                "rgt": {
+                                    "type": "number"
+                                },
+                                "lft": {
+                                    "type": "number"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CategorySave": {
+                "properties": {
+                    "categoryId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "parentId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "lft": {
+                        "type": "integer"
+                    },
+                    "rgt": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
             "AreaCodesFindAll": {
                 "properties": {
                     "data": {
@@ -1741,8 +2006,8 @@
                     "themeColor": {
                         "type": "string"
                     },
-                    "avatarImage": {
-                        "type": "string"
+                    "avatar": {
+                        "$ref": "#/components/schemas/AvatarObject"
                     },
                     "userRoles": {
                         "type": "array",

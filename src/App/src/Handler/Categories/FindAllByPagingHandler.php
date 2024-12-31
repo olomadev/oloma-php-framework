@@ -22,7 +22,7 @@ class FindAllByPagingHandler implements RequestHandlerInterface
      *   path="/categories/findAllByPaging",
      *   tags={"Categories"},
      *   summary="Find all categories tree",
-     *   operationId="categories_findAll",
+     *   operationId="categories_findAllByPaging",
      *   
      *   @OA\Response(
      *     response=200,
