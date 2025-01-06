@@ -37,7 +37,7 @@ class FindAllByPagingHandler implements RequestHandlerInterface
      **/
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $data = $this->categoryModel->findAllByPaging();
+        $data = $this->categoryModel->findAllNested();
         return new JsonResponse([
             'data' => $data,
         ]);

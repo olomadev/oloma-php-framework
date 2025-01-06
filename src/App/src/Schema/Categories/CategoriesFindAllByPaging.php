@@ -13,11 +13,7 @@ class CategoriesFindAllByPaging
     *      type="array",
     *      @OA\Items(
     *           @OA\Property(
-    *             property="categoryId",
-    *             type="string",
-    *           ),
-    *           @OA\Property(
-    *             property="parentId",
+    *             property="id",
     *             type="string",
     *           ),
     *           @OA\Property(
@@ -25,7 +21,7 @@ class CategoriesFindAllByPaging
     *             type="string",
     *           ),
     *           @OA\Property(
-    *             property="slug",
+    *             property="parentId",
     *             type="string",
     *           ),
     *           @OA\Property(

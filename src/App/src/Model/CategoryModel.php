@@ -34,6 +34,10 @@ class CategoryModel
 
     public function findAll()
     {
+        $nested = empty($get['nested']) ? false : true;
+        if ($nested) {
+            return $this->findAllNested();
+        }
         $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
         if ($this->cache->hasItem($key)) {
             return $this->cache->getItem($key);
@@ -64,7 +68,7 @@ class CategoryModel
         return $options;
     }
 
-    public function findAllByPaging()
+    public function findAllNested()
     {
         $key = CACHE_ROOT_KEY.Self::class.':'.__FUNCTION__;
         if ($this->cache->hasItem($key)) {
@@ -204,7 +208,7 @@ class CategoryModel
                 $children = $this->buildTree($items, $item['categoryId']);
                 $node = [
                     'id' => $item['categoryId'],
-                    'title' => $item['name'],
+                    'name' => $item['name'],
                     'parentId' => $item['parentId'],
                     'rgt' => $item['rgt'],
                     'lft' => $item['lft'],
@@ -325,7 +329,7 @@ class CategoryModel
     private function deleteCache()
     {
         $this->cache->removeItem(CACHE_ROOT_KEY.Self::class.':findAll');
-        $this->cache->removeItem(CACHE_ROOT_KEY.Self::class.':findAllByPaging');
+        $this->cache->removeItem(CACHE_ROOT_KEY.Self::class.':findAllNested');
     }
 
 }
